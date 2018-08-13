@@ -1,0 +1,20 @@
+<!--pages/book/book.wxml-->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+  <block wx:for="{{imgs}}"  wx:key="*this">
+    <swiper-item>
+      <view class="swiper-item"><image src="{{item}}" /></view>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="weui-panel weui-panel_access">
+  <view class="weui-panel__hd panel_hd">
+  <span>{{title}}</span>
+  <stars></stars>
+  </view>
+  <view class="weui-panel__bd">
+    <view  wx:for="{{sections}}" class="weui-media-box weui-media-box_text">
+      <view class="weui-media-box__title weui-media-box__title_in-text">{{item.name}}</view>
+      <view wx:for="{{item.desc}}"  wx:if="{{item.desc.len != 0}}" class="weui-media-box__desc desc">{{item}}</view>
+    </view>
+  </view>
+</view>
