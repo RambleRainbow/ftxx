@@ -2,7 +2,7 @@
   <view class="page__hd header">
     <view class="slogan">
       <image class="badage"></image>
-      <text class="school_name">方泰小学</text>
+      <text class="school_name">元年</text>
       <text class="app_name">阅读推荐</text>
     </view>
     <view class="weui-search-bar search_bar">
@@ -22,7 +22,7 @@
       <view class="weui-search-bar__cancel-btn cancel_btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
     </view>
     <view class="filter_panel">
-      <button wx:for="{{filters}}" size="mini" class="filter_btn {{filterIndex==index?'filter_btn_sel':''}}"  bindtap="setFilter{{index}}">{{item.name}}</button>
+      <button wx:for="{{filters}}" wx:key="{{Unique}}" size="mini" class="filter_btn {{filterIndex==index?'filter_btn_sel':''}}" bindtap="setFilter{{index}}">{{item.name}}</button>
     </view>
     <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
       <navigator url="" class="weui-cell" hover-class="weui-cell_active" wx:for="{{search_result}}">
@@ -34,12 +34,13 @@
   </view>
   <view class="page__bd body">
     <view class="weui-grids book_grids">
-      <block wx:for="{{grids}}" wx:key="*this">
-        <navigator url="" class="weui-grid book_grid" hover-class="weui-grid_active">
+      <block wx:for="{{grids}}" wx:key="Unique">
+        <navigator url="/pages/book/book?id={{item.id}}&name={{item.name}}" class="weui-grid book_grid" hover-class="weui-grid_active">
           <view class="weui-grid__label book_name">{{item.name}}</view>
-          <image class="weui-grid__icon book" src="{{item.image}}" />
+          <image class="weui-grid__icon book" src="{{item.coverImage}}" />
         </navigator>
       </block>
     </view>
   </view>
+
 </view>

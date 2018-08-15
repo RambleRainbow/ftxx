@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/book/book",
-    "pages/books/books"
+    "pages/books/books",
+    "pages/book/book"
   ],
   "window": {
     "navigationBarTextStyle": "#ffa0a0",

@@ -10,8 +10,8 @@
 }
 
 .header {
-  width: 100%;
   position: absolute;
+  width: 100%;
   padding: 0rpx;
   z-index: 500;
 }
@@ -23,7 +23,8 @@
   top: calc(46px + 75px + 36px);
   left: 0rpx;
   padding: 16rpx 20rpx;
-  height: calc(100% - 50px - 75px - 36px);
+  height: calc(100% - 46px - 75px - 36px);
+  width: 100%;
 }
 
 .slogan {
@@ -61,6 +62,7 @@
 
 .book_grids {
   border: 0px;
+  width: 100%;
 }
 
 .book_grid {

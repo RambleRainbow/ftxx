@@ -1,61 +1,15 @@
 /* pages/book/book.wxss */
 swiper {
-  height: 300px;
+  height: 250px;
 }
 .swiper-item{
   display: flex;
-  height: 300px;
+  height: 250px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   background: white;
 }
-.demo-text-1{
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: #1AAD19;
-  color: #FFFFFF;
-  font-size: 36rpx;
-}
-.demo-text-1:before{
-  content: 'A';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.demo-text-2{
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: #2782D7;
-  color: #FFFFFF;
-  font-size: 36rpx;
-}
-.demo-text-2:before{
-  content: 'B';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.demo-text-3{
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  background-color: #F1F1F1;
-  color: #353535;
-  font-size: 36rpx;
-}
-.demo-text-3:before{
-  content: 'C';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .desc {
   -webkit-line-clamp: 1000;
   white-space: pre-wrap;
@@ -69,4 +23,9 @@ swiper {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.descline {
+  display: block;
+  text-indent: 2em;
 }

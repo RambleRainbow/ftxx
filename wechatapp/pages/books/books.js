@@ -1,25 +1,16 @@
+const app = getApp();
 Page({
   data: {
     inputShowed: false,
     inputVal: "",
-    grids: [
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg"},
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
-      { name: "活了100万次的猫", image: "https://img12.360buyimg.com/n2/jfs/t6652/357/528149228/508023/6fb1f085/59410a88N30ac50fb.jpg" },
+    grids: [ 
     ],
     filterIndex: 0,
     filters: [
-      { name: "所有年级", value: 0 },
-      { name: "一 ~ 二", value: 1 },
-      { name: "三 ~ 四", value: 2 },
-      { name: "五 ~ 六", value: 3 },
+      { name: "全年级", value: 0 },
+      { name: "一|二", value: 1 },
+      { name: "三|四", value: 2 },
+      { name: "五|六", value: 3 },
     ],
   },
   setFilter(value) {
@@ -57,5 +48,35 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
+  },
+  onShow(options) {
+    let self = this;
+    console.log(this);
+    wx.request({
+      url: app.globalData.config.url + "/api/v1/books",
+      method: "GET",
+      dataType: "json",
+      success: function(res) {
+        if(res.statusCode >= 200 && res.statusCode < 300){
+          self.setData({
+            grids: res.data
+          })
+        } else {
+          wx.showToast({
+            title: "有点小问题\n请稍后再试",
+            icon: "none",
+            duration: 2000
+          })
+        }     
+      },
+      fail() {
+        wx.showToast({
+          title: '有点小问题哦\n请稍后再试'
+        })
+      }
+    })
+  },
+  onPullDownRefresh() {
+    
   }
 });
