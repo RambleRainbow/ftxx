@@ -7,6 +7,7 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 
 import {IndexRoute} from "./routes/index";
+import {BooksRouter} from "./routes/books";
 /**
  * The server.
  *
@@ -67,13 +68,24 @@ export class Server {
   public config(): any {
     // empty for now
 
-    // add byside framework
+  // add byside framework
   // add static paths
   this.app.use(express.static(path.join(__dirname, "public")));
 
   // configure pug
   this.app.set("views", path.join(__dirname, "views"));
   this.app.set("view engine", "pug");
+
+  this.app.all("*",  function(req:express.Request, res:express.Response, next:express.NextFunction): void {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With");
+      res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+      if (req.method === "OPTIONS") {
+          res.send(200);
+      } else {
+          next();
+      }
+  });
 
   // use logger middlware
   this.app.use(logger("dev"));
@@ -116,5 +128,6 @@ export class Server {
     IndexRoute.create(router);
 
     this.app.use(router);
+    this.app.use("/api/v1/books", BooksRouter.create());
   }
 }
