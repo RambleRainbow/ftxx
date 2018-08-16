@@ -4,7 +4,7 @@ declare class BookDesc {
 }
 
 declare class Book {
-    id: string;
+    _id: string;
     name: string;
     labels: string[];
     coverImage: string;
@@ -23,7 +23,7 @@ declare class BookQueryOptions {
 }
 
 declare interface IBooks {
-    Query(opts?: BookQueryOptions): Book[];
-    QueryBookDetail(id: string): BookDetail;
-    CreateBook(book: BookDetail): BookDetail;
+    Query(opts?: BookQueryOptions): Promise<Book[]>;
+    QueryBookDetail(id: string): Promise<BookDetail>;
+    CreateBook(book: BookDetail): Promise<BookDetail>;
 }

@@ -3,6 +3,7 @@
 import {NextFunction, Request, Response, Router} from "express";
 import {BaseRoute} from "./route";
 import books from "../models/books";
+import { AsyncResource } from "async_hooks";
 
 let handler: BooksRouter = null;
 export class BooksRouter extends BaseRoute {
@@ -32,22 +33,34 @@ export class BooksRouter extends BaseRoute {
     }
 
     Books(req:Request, res:Response, next:NextFunction): void {
-        res.send(books.Query({}));
+        (async () => {
+            let rtn: Book[] = await books.Query({});
+            res.send(rtn);
+        })();
     }
 
     BooksDetail(req: Request, res: Response, next: NextFunction): void {
-        let bookDetail:BookDetail = books.QueryBookDetail(req.params.id);
-        if(bookDetail) {
-            res.json(bookDetail);
-        } else {
-            res.statusCode = 404;
-            res.json({});
-        }
+        (async() => {
+            let bookDetail:BookDetail = await books.QueryBookDetail(req.params.id);
+            if(bookDetail) {
+                res.json(bookDetail);
+            } else {
+                res.statusCode = 404;
+                res.json({});
+            }
+        })();
     }
 
     CreateBook(req: Request, res: Response, next: NextFunction): void {
-            let rtn: BookDetail = books.CreateBook(<BookDetail>req.body);
+        (async() => {
+            let rtn: BookDetail = await books.CreateBook(<BookDetail>req.body);
+            if(rtn !== null) {
             res.statusCode = 201;
             res.json(rtn);
+            } else {
+                res.statusCode = 406;
+                res.json("创建失败");
+            }
+        })();
     }
 }

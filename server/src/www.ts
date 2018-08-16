@@ -7,6 +7,9 @@ import * as express from "express";
 import { Server } from "./server";
 import * as debugModule from "debug";
 import * as http from "http";
+
+
+
 var debug:debugModule.IDebugger = debugModule("wechatcallbackserver:server");
 
 /**
