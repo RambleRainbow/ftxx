@@ -4,11 +4,9 @@ import * as config from "config";
 import * as fs from "fs";
 import * as mgdb from "mongodb";
 import {MongoDBHelper} from "./mongoHelper";
-const books: any = require("../datas/books.json");
+// const books: any = require("../datas/books.json");
 
-console.log(mgdb);
 class Books implements IBooks {
-    _books: BookDetail[];
     async Query(opts: BookQueryOptions): Promise<Book[]> {
         let helper:MongoDBHelper = new MongoDBHelper();
         try {
@@ -66,9 +64,6 @@ class Books implements IBooks {
         }
     }
 
-    constructor() {
-        this._books = <BookDetail[]>books;
-    }
 }
 
 export default <IBooks>(new Books());
