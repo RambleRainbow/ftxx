@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request":"launch",
-            "name": "启动程序",
+            "name": "调试程序",
             "program": "${workspaceFolder}\\src\\www.ts",
             "runtimeArgs": [
                 "--nolazy",
@@ -17,6 +17,15 @@
             "sourceMaps": true,
             "cwd": "${workspaceFolder}/src",
             "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "启动编译后程序",
+            "program": "${workspaceFolder}\\dist\\src\\www.js",
+            "cwd": "${workspaceFolder}/dist/src",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
         }
