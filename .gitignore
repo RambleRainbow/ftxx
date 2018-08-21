@@ -2,3 +2,4 @@
 /server/coverage
 /server/.nyc_output
 /server/dist/*
+!.gitkeep
