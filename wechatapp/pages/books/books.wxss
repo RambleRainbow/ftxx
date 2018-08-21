@@ -87,6 +87,7 @@
   word-wrap: break-all;
   white-space: pre-wrap;
   margin: 0 4px;
+  height: 30px;
 }
 
 .search_bar {
