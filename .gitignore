@@ -4,3 +4,6 @@
 /server/dist/*
 !.gitkeep
 /docker/server
+/etl/node_modules
+/etl/coverage
+/etl/.nyc_output
