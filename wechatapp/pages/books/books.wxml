@@ -2,7 +2,7 @@
   <view class="page__hd header">
     <view class="slogan">
       <image class="badage"></image>
-      <text class="school_name">元年</text>
+      <text class="school_name">{{companyName}}</text>
       <text class="app_name">阅读推荐</text>
     </view>
     <view class="weui-search-bar search_bar">

@@ -1,6 +1,7 @@
 const app = getApp();
 Page({
   data: {
+    companyName: "方泰小学",
     inputShowed: false,
     inputVal: "",
     grids: [],
