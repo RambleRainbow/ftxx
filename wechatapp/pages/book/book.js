@@ -20,7 +20,6 @@ Page({
       bookId: options.id,
       bookName: options.name
     })
-    console.log(options);
     wx.setNavigationBarTitle({
       title: options.name,
     });
