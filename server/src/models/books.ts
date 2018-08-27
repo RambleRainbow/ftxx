@@ -51,7 +51,7 @@ class Books implements IBooks {
     async CreateBook(book: BookDetail): Promise<BookDetail> {
         let helper:MongoDBHelper = new MongoDBHelper();
         try {
-            let c: mgdb.Collection = await helper.CreateCollection("books");
+            let c: mgdb.Collection = await helper.CreateCollection("booksTemp");
             let rtn:any = book;
             rtn._id = new mgdb.ObjectId();
             await c.insertOne(rtn);
