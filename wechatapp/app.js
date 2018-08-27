@@ -8,6 +8,7 @@ App({
     globalData: {
         config: {
           url: 'http://localhost:3000'
+          //url: 'https://ftxx.growingwithson.com'
         }
     }
 });

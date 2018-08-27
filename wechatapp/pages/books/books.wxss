@@ -83,11 +83,11 @@
 
 .book_name {
   color: #a0a0a0;
-  font-size: 10px;
+  font-size: 9px;
   word-wrap: break-all;
   white-space: pre-wrap;
   margin: 0 4px;
-  height: 30px;
+  /*height: 30px;*/
 }
 
 .search_bar {
