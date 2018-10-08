@@ -1,7 +1,7 @@
 const app = getApp();
 Page({
   data: {
-    companyName: "方泰小学",
+    companyName: "慧雅",
     inputShowed: false,
     inputVal: "",
     grids: [],
@@ -114,7 +114,7 @@ Page({
     })
   },
   onShow(options) {
-
+    console.log(app.globalData);
   },
   onPullDownRefresh() {
     

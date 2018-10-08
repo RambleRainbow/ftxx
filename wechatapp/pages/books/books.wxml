@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__hd header">
     <view class="slogan">
-      <image class="badage"></image>
+      <image class="badage" src="../../images/logo_small.png"></image>
       <text class="school_name">{{companyName}}</text>
       <text class="app_name">阅读推荐</text>
     </view>
