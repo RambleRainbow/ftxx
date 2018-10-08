@@ -31,6 +31,9 @@ Page({
     });
     wx.request({
       url: app.globalData.config.url + `/api/v1/books/${options.id}`,
+      header: {
+        "Authorization": `Beared ${app.globalData.token.access}`
+      },
       success(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({

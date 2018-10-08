@@ -90,6 +90,9 @@ Page({
       url: app.globalData.config.url + "/api/v1/books",
       method: "GET",
       dataType: "json",
+      header: {
+        "Authorization": `Beared ${app.globalData.token.access}`
+      },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({
@@ -114,7 +117,6 @@ Page({
     })
   },
   onShow(options) {
-    console.log(app.globalData);
   },
   onPullDownRefresh() {
     

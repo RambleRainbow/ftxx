@@ -2,7 +2,7 @@
 import regeneratorRuntime from "../../utils/regeneratorRuntime"
 import * as wxAsync from "../../utils/wxAsync"
 import * as wxService from "../../services/wxService"
-import * as tokenService from "../../services/tokenService"
+
 
 //获取应用实例
 const app = getApp();
@@ -41,6 +41,7 @@ Page({
         })
       }
       else {
+        app.globalData.token.access = token.access_token;
         wx.navigateTo({
           url: '../books/books',
         })
