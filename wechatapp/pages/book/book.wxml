@@ -1,15 +1,18 @@
 <!--pages/book/book.wxml-->
-<swiper indicator-dots="true" autoplay="false" circular="true" interval="2000" duration="500" previous-margin="0px" next-margin="0px">
+<swiper indicator-dots="true" autoplay="false" circular="true" interval="2000" duration="500" previous-margin="0px" next-margin="0px" bindchange="onSwiperChange">
   <block wx:for="{{bookDetail.images}}"  wx:key="unique">
-    <swiper-item>
-      <view class="swiper-item"><image src="{{item}}" /></view>
+    <swiper-item >
+      <view class="swiper-item"><image src="{{item}}" bindtap="doPreview"/></view>
     </swiper-item>
   </block>
 </swiper>
 <view class="weui-panel weui-panel_access">
   <view class="weui-panel__hd panel_hd">
-  <span>{{bookName}}</span>
-  <stars></stars>
+  <span class="span_title">{{bookName}}</span>
+  <div class="div_thumb">
+  <span class="span_thumb">123</span>
+  <button class="btn_thumb" open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo"><image class="image_thumb" src="../../images/thumb_off.png"></image></button>
+  </div>
   </view>
   <view class="weui-panel__bd">
     <view  wx:for="{{bookDetail.descs}}" wx:key="{{unique}}" class="weui-media-box weui-media-box_text">

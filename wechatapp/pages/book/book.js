@@ -6,11 +6,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bookId: "",
-    bookName: "",
+    bookId: "5b73ef6f91d29f0cc875b042",
+    bookName: "活了一百万次的猫",
+    swiperIndex: 0,
     bookDetail: {}
   },
 
+  onSwiperChange(args) {
+    this.setData({
+      swiperIndex: args.detail.current
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -38,7 +44,16 @@ Page({
       }
     })
   },
+  doPreview() {
+    wx.previewImage({
+      urls: this.data.bookDetail.images,
+      current: this.data.bookDetail.images[this.data.swiperIndex]
+    })
+  },
 
+  bindGetUserInfo(e) {
+    console.log(e);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
