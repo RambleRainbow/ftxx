@@ -1,9 +1,9 @@
 import * as express from "express";
-import * as request from "request";
 import * as jwt from "jsonwebtoken";
 import * as WxService from "../services/wxService";
 import * as UserModel from "../models/users";
 import * as debugModal from "debug";
+import * as config from "config";
 
 let debug: any = debugModal("ts-express:route:token");
 let router: express.Router = express.Router();
@@ -40,7 +40,7 @@ router.put("/:code", function(req: express.Request, res: express.Response, next:
       debug("user create success. send user token");
       res.statusCode = 201;
       res.json({
-        access_token: jwt.sign({userId:user.userId}, "hyyd@ftxx@RAINBOW")
+        access_token: jwt.sign({userId:user.userId}, config.get<any>("JWT").secret)
       });
     }
   })();

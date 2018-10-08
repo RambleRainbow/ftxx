@@ -3,6 +3,8 @@ import * as cookieParser from "cookie-parser";
 import * as express from "express";
 import * as logger from "morgan";
 import * as path from "path";
+import * as jwt from "jsonwebtoken";
+import * as config from "config";
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 
@@ -83,9 +85,29 @@ export class Server {
       if (req.method === "OPTIONS") {
           res.send(200);
       } else {
-          next();
+          let auth: string = req.headers.authorization || "";
+          let token: string = "";
+          if(auth.match(/Beared \S+\.\S+\.\S+/)) {
+            token = auth.split(" ")[1];
+            jwt.verify(token, config.get<any>("JWT").secret, (error:jwt.VerifyErrors, decode:string | object) => {
+              if(error) {
+                res.statusCode = 407;
+                res.json({
+                  errmsg: "JWT校验失败"
+                });
+              } else {
+                next();
+              }
+            });
+          } else {
+            res.statusCode = 407;
+            res.json({
+                errmsg: "请求需要认证"
+            });
+          }
       }
   });
+
 
   // use logger middlware
   this.app.use(logger("dev"));
