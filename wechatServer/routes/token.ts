@@ -16,18 +16,28 @@ router.put("/:code", function(req: express.Request, res: express.Response, next:
   (async() => {
     let session: WxService.ISession = await WxService.code2Session(req.params.code);
     let userInfo: WxService.IUserInfo = await WxService.decryptUserInfo(session, req.body);
-    debug(userInfo);
+    if(userInfo === null) {
+      debug(`数据解析失败`);
+      res.statusCode = 400;
+      res.json({
+        errmsg: "数据解析失败，非法用户数据"
+      });
+      return;
+    }
     let user: UserModel.IUser = await UserModel.query(userInfo.openId);
     if(user === null) {
+      debug(`do not find user. create new user!`);
       user = await UserModel.create(userInfo);
     }
 
     if(user === null) {
+      debug("user create failed");
       res.statusCode = 400;
       res.json({
         errmsg: "用户创建失败"
       });
     } else {
+      debug("user create success. send user token");
       res.statusCode = 201;
       res.json({
         access_token: jwt.sign({userId:user.userId}, "hyyd@ftxx@RAINBOW")

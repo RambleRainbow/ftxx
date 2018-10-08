@@ -3,6 +3,9 @@
 import * as request from "request";
 import * as crypto from "crypto";
 import { raw } from "body-parser";
+import * as debugModal from "debug";
+
+let debug: debugModal.IDebugger = debugModal("ts-express:service:wx");
 
 const URL_WX: string= "https://api.weixin.qq.com";
 
@@ -32,16 +35,19 @@ class WxService implements WxService.IService {
       },
       function(error: any, response: request.Response, body: any): void {
         if(error) {
-          reject(new Error(error.message));
+          debug(`invoke code2session error: ${error.message}`);
+          resolve(null);
           return;
         }
 
         if(response.statusCode < 200 || response.statusCode >= 300) {
-          reject( new Error(error.message));
+          debug(`http request api code2session error: ${response.statusCode},${body}`);
+          resolve(null);
           return;
         }
 
         let session: WxService.ISession = <WxService.ISession>body;
+        debug(`get session: ${session.openid},${session.session_key}`);
         resolve(session);
       });
     });
