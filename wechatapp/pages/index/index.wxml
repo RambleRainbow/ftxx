@@ -1,13 +1,14 @@
 <!--index.wxml-->
 <view class="container">
   <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" type="primary">开启阅读之旅</button>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="slogan">
+    <view class="logo">
+      <image src="../../images/logo_small.png" class="logo"></image>
+      <span>慧雅</span>
+    </view>
+    <image src="../../images/title.png" style="width:150px;height:20px;margin:10px 0px 20px 0px"></image>
+    <view class="copyright">Copyright © 2018 FangTai. All right reserved.</view>
   </view>
 </view>

@@ -1,8 +1,10 @@
 /**index.wxss**/
 .userinfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  height: 300px;
 }
 
 .userinfo-avatar {
@@ -18,4 +20,32 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.slogan {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: 0px;
+  width: 100%;
+}
+
+image.logo {
+  width: 32px;
+  height: 32px;
+}
+
+view.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+view.copyright {
+  font-size: 8px;
+  color: lightgray;
+  margin-bottom: 5px;
 }

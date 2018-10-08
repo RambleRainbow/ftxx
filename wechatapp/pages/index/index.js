@@ -1,54 +1,74 @@
 //index.js
+import regeneratorRuntime from "../../utils/regeneratorRuntime"
+import * as wxAsync from "../../utils/wxAsync"
+import * as wxService from "../../services/wxService"
+import * as tokenService from "../../services/tokenService"
+
 //获取应用实例
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
-    hasUserInfo: false,
+    hasUserInfo: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  updateUserInfo(userInfo) {
+    app.globalData.userInfo = userInfo;
+    this.setData({
+      hasUserInfo: userInfo ? true : false
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+  doLogin({code, userInfo}) {
+    return new Promise( (resolve, reject) => {
+      (async() => {
+        try {
+          let token = await wxService.createToken({code, userInfo});
+          resolve(token);
+        } catch(err) {
+          resolve("");
+        }
+      })();
+    });
+  },
+  login({code, userInfo}) {
+    (async() => {
+      let token = await this.doLogin({code, userInfo});
+      if (token === "") {
+        wx.showToast({
+          title: '登录失败',
+          icon: 'none'
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+      else {
+        wx.navigateTo({
+          url: '../books/books',
+        })
+      }
+    })();
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+  onLoad: function () {
+    let self = this;
+    (async() => {
+      try {
+        let res = await wxAsync.login();
+        let resUserInfo = await wxAsync.getUserInfo();
+        self.updateUserInfo(resUserInfo.userInfo);
+        if(this.data.hasUserInfo) {
+          self.login({code: res.code, userInfo: resUserInfo});
+        }
+      }
+      catch(err) {
+        this.setData({
+          hasUserInfo: false
+        })
+      }
+    })();
+  },
+  onGetUserInfo: function(e) {
+    this.updateUserInfo(e.detail.userInfo);
+    if(this.data.hasUserInfo) {
+      this.login();
+    }
   }
 })
