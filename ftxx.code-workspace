@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "server"
+		},
+		{
+			"path": "wechatServer"
+		}
+	],
+	"settings": {
+		"mocha.files.glob": "test/**/*.ts",
+		"mocha.requires": [
+			"ts-node/register"
+		]
+	}
+}
