@@ -34,7 +34,13 @@ function request({url,data = undefined,header=undefined, method=undefined, dataT
       dataType,
       responseType,
       success(res) {
-        resolve(res);
+        if(res.statusCode >= 200 && res.statusCode < 400) {
+          resolve(res);
+        }
+        else {
+          let err = new Error(`调用错误:${res.statusCode}-${res.errmsg}`);
+          reject(err);
+        }
       },
       fail(e) {
         reject(new Error(e.errMsg));
