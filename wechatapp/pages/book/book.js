@@ -14,7 +14,8 @@ Page({
     swiperIndex: 0,
     bookDetail: {},
     likeAmount: 0,
-    isUserLike: false
+    isUserLike: false,
+    haveBookDetail: false
   },
 
   onSwiperChange(args) {
@@ -50,6 +51,7 @@ Page({
         })
         this.setData({
           bookDetail: res.data,
+          haveBookDetail: true,
           likeAmount: resAmount.data.amount,
           isUserLike: resAmount.data.isUserLike
         })

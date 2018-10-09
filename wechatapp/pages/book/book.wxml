@@ -9,14 +9,14 @@
 <view class="weui-panel weui-panel_access">
   <view class="weui-panel__hd panel_hd">
   <span class="span_title">{{bookName}}</span>
-  <div class="div_thumb">
+  <div wx:if="{{haveBookDetail}}" class="div_thumb">
   <span class="span_thumb">{{likeAmount}}</span>
-  <button wx:if="{{isUserLike}}" class="btn_thumb" bindtap="onRemoveUserLike">
-    <image class="image_thumb" src="../../images/thumb_on.png"></image>
-  </button>
-  <button wx:else class="btn_thumb" bindtap="onAddUserLike">
-    <image class="image_thumb" src="../../images/thumb_off.png"></image>
-  </button>
+    <button wx:if="{{isUserLike}}" class="btn_thumb" bindtap="onRemoveUserLike">
+     <image class="image_thumb" src="../../images/thumb_on.png"></image>
+    </button>
+    <button  wx:else class="btn_thumb" bindtap="onAddUserLike">
+      <image class="image_thumb" src="../../images/thumb_off.png"></image>
+    </button>
   </div>
   </view>
   <view class="weui-panel__bd">
