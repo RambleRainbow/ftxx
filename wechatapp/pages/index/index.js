@@ -42,7 +42,7 @@ Page({
       }
       else {
         app.globalData.token.access = token.access_token;
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../books/books',
         })
       }
