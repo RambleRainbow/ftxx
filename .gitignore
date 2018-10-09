@@ -9,3 +9,5 @@
 /etl/.nyc_output
 /etl/books.json
 /etl/books.yaml
+/wechatServer/dist/*
+/wechatServer/node_modules
