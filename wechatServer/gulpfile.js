@@ -4,18 +4,18 @@ var gulp = require('gulp'),
   tsc = require('gulp-tsc');
 
 gulp.task("tsc", () => {
-  del("dist/**/*");
-  gulp.src(["./**/*.ts", "!./node_modules/**/*"])
+  del("./dist/**/*");
+  gulp.src(["./**/*.ts", "!./node_modules/**/*", "!./dist/**/*"])
   .pipe(tsc({
     module: "COMMONJS",
     target: "ES2015"
   }))
-  .pipe(gulp.dest("dist/"));
+  .pipe(gulp.dest("./dist/"));
 });
 
 gulp.task("npm", () => {
-  gulp.src("package*.json")
-  .pipe(gulp.dest("dist/"))
+  gulp.src("./package*.json")
+  .pipe(gulp.dest("./dist/"))
   .pipe(shell(["npm install --production"], {
     cwd: "dist"
   }));
@@ -29,6 +29,6 @@ gulp.task("copy", () => {
   .pipe(gulp.dest("dist/"));
 });
 
-gulp.task("contribute", ["tsc","npm", "copy"], () => {
+gulp.task("contribute", ["tsc","copy", "npm"], () => {
   
 });
