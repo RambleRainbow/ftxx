@@ -25,7 +25,7 @@
             "request": "launch",
             "name": "启动编译后程序",
             "program": "${workspaceFolder}\\dist\\src\\www.js",
-            "cwd": "${workspaceFolder}/dist/src",
+            "cwd": "${workspaceFolder}/dist",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
         }
