@@ -26,4 +26,8 @@ declare interface IBooks {
     Query(opts?: BookQueryOptions): Promise<Book[]>;
     QueryBookDetail(id: string): Promise<BookDetail>;
     CreateBook(book: BookDetail): Promise<BookDetail>;
+    QueryBookLikes(id: string): Promise<number>;
+    QueryIsUserLike(id: string, userId: string): Promise<boolean>
+    AddUserLike(id: string, userId: string): Promise<boolean>;
+    RemoveUserLike(id: string, userId: string): Promise<boolean>;
 }

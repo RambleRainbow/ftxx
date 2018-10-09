@@ -1,4 +1,7 @@
 // pages/book/book.js
+import * as wxAsync from "../../utils/wxAsync.js";
+import regeneratorRuntime from "../../utils/regeneratorRuntime";
+
 const app = getApp();
 Page({
 
@@ -9,7 +12,9 @@ Page({
     bookId: "5b73ef6f91d29f0cc875b042",
     bookName: "活了一百万次的猫",
     swiperIndex: 0,
-    bookDetail: {}
+    bookDetail: {},
+    likeAmount: 0,
+    isUserLike: false
   },
 
   onSwiperChange(args) {
@@ -29,23 +34,32 @@ Page({
     wx.setNavigationBarTitle({
       title: options.name,
     });
-    wx.request({
-      url: app.globalData.config.url + `/api/v1/books/${options.id}`,
-      header: {
-        "Authorization": `Beared ${app.globalData.token.access}`
-      },
-      success(res) {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.setData({
-            bookDetail: res.data
-          })
-        } else {
-          wx.showToast({
-            title: '哎呀，出错了',
-          })
-        }
+    (async() => {
+      try {
+        let res = await wxAsync.request({
+          url: app.globalData.config.url + `/api/v1/books/${options.id}`,
+          header: {
+            "Authorization": `Beared ${app.globalData.token.access}`
+          },
+        });
+        let resAmount = await wxAsync.request({
+          url: app.globalData.config.url + `/api/v1/books/${options.id}/likes`,
+          header: {
+            "Authorization": `Beared ${app.globalData.token.access}`
+          },
+        })
+        this.setData({
+          bookDetail: res.data,
+          likeAmount: resAmount.data.amount,
+          isUserLike: resAmount.data.isUserLike
+        })
+      } catch (err) {
+        console.log(err.message);
+        wx.showToast({
+          title: '哎呀，出错了',
+        })
       }
-    })
+    })();
   },
   doPreview() {
     wx.previewImage({
@@ -54,8 +68,43 @@ Page({
     })
   },
 
-  bindGetUserInfo(e) {
-    console.log(e);
+  onAddUserLike() {
+    this.setData({
+      isUserLike: true,
+      likeAmount: this.data.likeAmount + 1
+    });
+    (async() => {
+      try {
+        let res = await wxAsync.request({
+          url: app.globalData.config.url + `/api/v1/books/${this.data.bookId}/likes`,
+          method: "POST",
+          header: {
+            "Authorization": `Beared ${app.globalData.token.access}`
+          }
+        });
+      } catch(err) {}
+    })();
+  },
+
+  onRemoveUserLike() {
+    this.setData({
+      isUserLike: false,
+      likeAmount: this.data.likeAmount - 1
+    });
+    (async() => {
+      try {
+        let res = await wxAsync.request({
+          url: app.globalData.config.url + `/api/v1/books/${this.data.bookId}/likes`,
+          method: "DELETE",
+          header: {
+            "Authorization": `Beared ${app.globalData.token.access}`
+          }
+        });
+        console.log(res);
+      } catch(err) {
+        console.log(err);
+      }
+    })();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

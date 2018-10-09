@@ -10,8 +10,13 @@
   <view class="weui-panel__hd panel_hd">
   <span class="span_title">{{bookName}}</span>
   <div class="div_thumb">
-  <span class="span_thumb">123</span>
-  <button class="btn_thumb" open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo"><image class="image_thumb" src="../../images/thumb_off.png"></image></button>
+  <span class="span_thumb">{{likeAmount}}</span>
+  <button wx:if="{{isUserLike}}" class="btn_thumb" bindtap="onRemoveUserLike">
+    <image class="image_thumb" src="../../images/thumb_on.png"></image>
+  </button>
+  <button wx:else class="btn_thumb" bindtap="onAddUserLike">
+    <image class="image_thumb" src="../../images/thumb_off.png"></image>
+  </button>
   </div>
   </view>
   <view class="weui-panel__bd">

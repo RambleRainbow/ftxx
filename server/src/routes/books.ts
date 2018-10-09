@@ -3,7 +3,7 @@
 import {NextFunction, Request, Response, Router} from "express";
 import {BaseRoute} from "./route";
 import books from "../models/books";
-import { AsyncResource } from "async_hooks";
+import * as TokenService from "../services/tokenService";
 
 let handler: BooksRouter = null;
 export class BooksRouter extends BaseRoute {
@@ -26,6 +26,17 @@ export class BooksRouter extends BaseRoute {
             handler.CreateBook(req, res, next);
         });
 
+        router.get("/:id/likes", (req: Request, res: Response, next: NextFunction) => {
+            handler.getLikes(req, res, next);
+        });
+
+        router.post("/:id/likes", (req: Request, res: Response, next: NextFunction) => {
+            handler.addLikes(req, res, next);
+        });
+
+        router.delete("/:id/likes", (req: Request, res: Response, next: NextFunction) => {
+            handler.removeLikes(req, res, next);
+        });
 
        return router;
     }
@@ -64,5 +75,45 @@ export class BooksRouter extends BaseRoute {
                 res.json("创建失败");
             }
         })();
+    }
+
+    async getLikes(req: Request, res: Response, next: NextFunction): Promise<void> {
+      let playload: TokenService.ITokenPlayLoad = await TokenService.verify(req.headers.authorization);
+      let rtn: any = {
+          id: req.params.id,
+          userId: playload.userId,
+          isUserLike: false,
+          amount: 0
+      };
+      rtn.amount = await books.QueryBookLikes(req.params.id);
+      rtn.isUserLike = await books.QueryIsUserLike(req.params.id, playload.userId);
+      res.statusCode = 200;
+      res.json(rtn);
+    }
+
+    async addLikes(req: Request, res: Response, next: NextFunction): Promise<void> {
+      let playload: TokenService.ITokenPlayLoad = await TokenService.verify(req.headers.authorization);
+      if(books.AddUserLike(req.params.id, playload.userId)) {
+          res.statusCode = 204;
+          res.json({});
+      } else {
+          res.statusCode = 400;
+          res.json({
+              errmsg: "添加点赞失败"
+          });
+      }
+    }
+
+    async removeLikes(req: Request, res: Response, next: NextFunction): Promise<void> {
+        let playload: TokenService.ITokenPlayLoad = await TokenService.verify(req.headers.authorization);
+        if(books.RemoveUserLike(req.params.id, playload.userId)) {
+            res.statusCode = 204;
+            res.json({});
+        } else {
+            res.statusCode = 400;
+            res.json({
+                errmsg: "取消点赞失败"
+            });
+        }
     }
 }
