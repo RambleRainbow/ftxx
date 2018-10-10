@@ -3,8 +3,11 @@ var gulp = require('gulp'),
   shell = require("gulp-shell"),
   tsc = require('gulp-tsc');
 
-gulp.task("tsc", () => {
+gulp.task("clean", () => {
   del("./dist/**/*");
+})
+
+gulp.task("tsc", ["clean"], () => {
   gulp.src(["./**/*.ts", "!./node_modules/**/*", "!./dist/**/*"])
   .pipe(tsc({
     module: "COMMONJS",
@@ -13,7 +16,7 @@ gulp.task("tsc", () => {
   .pipe(gulp.dest("./dist/"));
 });
 
-gulp.task("npm", () => {
+gulp.task("npm", ["clean"], () => {
   gulp.src("./package*.json")
   .pipe(gulp.dest("./dist/"))
   .pipe(shell(["npm install --production"], {
@@ -21,7 +24,7 @@ gulp.task("npm", () => {
   }));
 });
 
-gulp.task("copy", () => {
+gulp.task("copy", ["clean"], () => {
   gulp.src("./config/**/*")
   .pipe(gulp.dest("dist/config"));
 
