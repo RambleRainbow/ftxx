@@ -5,7 +5,7 @@ RUN apk add --no-cache tzdata &&\
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
 		apk del tzdata
 
-COPY ./server /usr/local/app
+COPY ./app /usr/local/app
 
 WORKDIR /usr/local/app
 
