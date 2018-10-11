@@ -4,31 +4,31 @@ var gulp = require('gulp'),
   tsc = require('gulp-tsc');
 
 gulp.task("tsc", () => {
-  del("dist/src");
+  del("../docker/server/app/src");
   gulp.src("src/**/*.ts")
   .pipe(tsc({
     module: "COMMONJS",
     target: "ES2015"
   }))
-  .pipe(gulp.dest("dist/src"));
+  .pipe(gulp.dest("../docker/server/app/src"));
 });
 
 gulp.task("npm", () => {
   gulp.src("package*.json")
-  .pipe(gulp.dest("dist/"))
+  .pipe(gulp.dest("../docker/server/app"))
   .pipe(shell(["npm install --production"], {
-    cwd: "dist"
+    cwd: "../docker/server/app"
   }));
 });
 
 gulp.task("copy", () => {
   gulp.src("src/config/*")
-  .pipe(gulp.dest("dist/config"));
+  .pipe(gulp.dest("../docker/server/app/config"));
 
   gulp.src("src/views/*")
-  .pipe(gulp.dest("dist/src/views"));
+  .pipe(gulp.dest("../docker/server/app/src/views"));
 })
 
-gulp.task("compile", ["tsc","npm", "copy"], () => {
+gulp.task("contribute", ["tsc","npm", "copy"], () => {
   
 });
