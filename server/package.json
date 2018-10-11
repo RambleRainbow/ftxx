@@ -1,7 +1,7 @@
 {
   "name": "ftxx-server",
   "version": "1.0.0",
-  "description": "方泰小学阅读推荐 服务端",
+  "description": "慧雅阅读推荐 服务端",
   "main": "src/www.ts",
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.ts",
