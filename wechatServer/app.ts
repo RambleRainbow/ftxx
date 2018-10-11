@@ -5,7 +5,7 @@ import * as express from "express";
 import * as path from "path";
 import * as cookieParser from "cookie-parser";
 import * as logger from "morgan";
-import * as errorHandler from "errorHandler";
+import * as errorHandler from "errorhandler";
 import * as methodOverride from "method-override";
 
 import indexRouter from "./routes/index";
