@@ -105,4 +105,4 @@ class WxService implements WxService.IService {
 }
 
 let svr: WxService = new WxService("wxfff7ec6387d698d6", "9a446299ed31fe35dfbc26c0d6417427");
-export default svr;
+module.exports = svr;
