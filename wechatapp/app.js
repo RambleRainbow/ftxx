@@ -7,8 +7,12 @@ App({
     },
     globalData: {
         config: {
-          //url: 'http://localhost:3000'
-          url: 'https://ftxx.growingwithson.com'
+          //url: 'http://localhost:3000',
+          url: 'https://ftxx.growingwithson.com',
+        },
+        userInfo: null,
+        token: {
+          access: ""
         }
     }
 });

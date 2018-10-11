@@ -7,7 +7,7 @@ function createToken({code, userInfo}) {
     (async() => {
       try {
         let res = await wxAsync.request({
-          url: `${app.globalData.config.urlWxService}/api/v1/tokens/${code}`,
+          url: `${app.globalData.config.url}/api/v1/tokens/${code}`,
           method: "PUT",
           dataType: "JSON",
           data: userInfo
