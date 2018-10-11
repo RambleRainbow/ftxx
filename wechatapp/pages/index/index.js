@@ -69,7 +69,14 @@ Page({
   onGetUserInfo: function(e) {
     this.updateUserInfo(e.detail.userInfo);
     if(this.data.hasUserInfo) {
-      this.login();
+      (async() => {
+        let res = await wxAsync.login();
+        let resUserInfo = await wxAsync.getUserInfo();
+        this.login({
+          code: res.code,
+          userInfo: resUserInfo
+        });
+      })();
     }
   }
 })
