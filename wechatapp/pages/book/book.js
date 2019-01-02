@@ -30,7 +30,8 @@ Page({
     let self = this;
     this.setData({
       bookId: options.id,
-      bookName: options.name
+      bookName: options.name,
+      token: options.token
     })
     wx.setNavigationBarTitle({
       title: options.name,
@@ -40,13 +41,15 @@ Page({
         let res = await wxAsync.request({
           url: app.globalData.config.url + `/api/v1/books/${options.id}`,
           header: {
-            "Authorization": `Beared ${app.globalData.token.access}`
+            //"Authorization": `Beared ${app.globalData.token.access}`
+            "Authorization": `Beared ${this.data.token}`
           },
         });
         let resAmount = await wxAsync.request({
           url: app.globalData.config.url + `/api/v1/books/${options.id}/likes`,
           header: {
-            "Authorization": `Beared ${app.globalData.token.access}`
+            //"Authorization": `Beared ${app.globalData.token.access}`
+            "Authorization": `Beared ${this.data.token}`
           },
         })
         this.setData({
@@ -81,7 +84,8 @@ Page({
           url: app.globalData.config.url + `/api/v1/books/${this.data.bookId}/likes`,
           method: "POST",
           header: {
-            "Authorization": `Beared ${app.globalData.token.access}`
+            //"Authorization": `Beared ${app.globalData.token.access}`
+            "Authorization": `Beared ${this.data.token}`
           }
         });
       } catch(err) {}
@@ -99,7 +103,8 @@ Page({
           url: app.globalData.config.url + `/api/v1/books/${this.data.bookId}/likes`,
           method: "DELETE",
           header: {
-            "Authorization": `Beared ${app.globalData.token.access}`
+            //"Authorization": `Beared ${app.globalData.token.access}`
+            "Authorization": `Beared ${this.data.token}`
           }
         });
         console.log(res);

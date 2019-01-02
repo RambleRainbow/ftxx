@@ -35,7 +35,7 @@
   <view class="page__bd body">
     <view class="weui-grids book_grids">
       <block wx:for="{{grids}}" wx:key="Unique">
-        <navigator url="/pages/book/book?id={{item._id}}&name={{item.name}}" class="weui-grid book_grid" hover-class="weui-grid_active">
+        <navigator url="/pages/book/book?id={{item._id}}&name={{item.name}}&token={{token}}" class="weui-grid book_grid" hover-class="weui-grid_active">
           <view class="weui-grid__label book_name">{{item.name}}</view>
           <image class="weui-grid__icon book" src="{{item.coverImage}}" />
         </navigator>
