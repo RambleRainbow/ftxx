@@ -5,7 +5,7 @@
     "pages/book/book"
   ],
   "window": {
-    "navigationBarTextStyle": "#ffa0a0",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "慧雅 阅读推荐",
     "navigationBarBackgroundColor": "#940300",
     "backgroundColor": "#f8f8f8"
