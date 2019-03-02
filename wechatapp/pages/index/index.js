@@ -43,7 +43,6 @@ Page({
       else {
         app.globalData.token.access = token.access_token;
         app.globalData.t = 1;
-        console.log("index:" + getApp().globalData.token.access);
         wx.redirectTo({
           url:`../books/books?token=${token.access_token}`,
         })

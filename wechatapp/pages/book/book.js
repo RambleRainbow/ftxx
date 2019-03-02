@@ -107,7 +107,6 @@ Page({
             "Authorization": `Beared ${this.data.token}`
           }
         });
-        console.log(res);
       } catch(err) {
         console.log(err);
       }
