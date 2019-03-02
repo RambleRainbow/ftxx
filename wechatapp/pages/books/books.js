@@ -68,7 +68,7 @@ Page({
   inputTyping: function (e) {
     this.setData({
       inputVal: e.detail.value,
-      grids: this.filterBooks(this.data.inputVal, this.data.classLabels, this.data.books)
+      grids: this.filterBooks(e.detail.value, this.data.classLabels, this.data.books)
     });
   },
   filterBooks(bookName, labels, books) {
